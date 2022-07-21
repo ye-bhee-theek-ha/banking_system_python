@@ -46,17 +46,20 @@ def logging_in():
     with open("data.csv", "r", newline="") as file:
         file_data = csv.DictReader(file)
 
+        # headers is a dictionary for first row in the file, we convert it into list of KEYS and save it to col_name
         headers = list(file_data)[0]
         col_name = list(headers.keys())
-        print(col_name)
         file.seek(0)
 
         for row_data in file_data:
             if id_num in row_data["id card no."]:
-                print(row_data)
-                for col in range(len(row_data)):
-                    if row_data[col]:
-                        print(f"{col_name[col]} = {row_data[col]}")
+
+                # as row data is a dictionary we convert it to list
+                row_list = list(row_data.values())
+                length = len(row_data)
+                for col in range(length):
+                    if row_list != "":
+                        print(f"{col_name[col]} = {row_list[col]}")
                 return 0
     print("no user by that id number.")
     return 1
